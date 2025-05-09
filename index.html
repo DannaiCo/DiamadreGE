@@ -7,8 +7,9 @@
   <style>
     html, body {
       margin: 0;
-	  width:80vw;
-	  height:80vh;
+	padding: 0;
+	  width:100vw;
+	  height:100vh;
 	  overflow:hidden;
 	  display:flex;
 	  align-items:center;
@@ -24,14 +25,15 @@
       height: 2051px;
       background: url('fondo.png') no-repeat center center;
       background-size:cover;
-      margin: 0 auto;
+      transform: scale(calc(100vh / 2051));
+      transform-origin: top left;
     }
 
     .mensaje {
       position: absolute;
       font-weight: lighter;
       color: #a00830;
-      transformar: traslate (-50%,-50%);
+      transform: traslate (-50%,-50%);
       font-size: 4.5em;
       font-family: Open Sans, sans-serif;
 	  font-style: italic;
