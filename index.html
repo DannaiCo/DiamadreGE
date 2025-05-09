@@ -11,12 +11,18 @@
 	  width:100vw;
 	  height:100vh;
 	  overflow:hidden;
-	  display:flex;
-	  align-items:center;
-	  justify-content:center;
       background-color:#f9c4c4;
     }
-
+.wrapper {
+      width: 1793px;
+      height: 2051px;
+      transform-origin: top left;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform: scale(calc(100vh / 2051));
+}
+	
     .contenedor {
       position:absolute;
 	  top:0;
@@ -25,8 +31,7 @@
       height: 2051px;
       background: url('fondo.png') no-repeat center center;
       background-size:cover;
-      transform: scale(calc(100vh / 2051));
-      transform-origin: top left;
+      position: relative;
     }
 
     .mensaje {
