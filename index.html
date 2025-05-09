@@ -7,41 +7,33 @@
   <style>
     html, body {
       margin: 0;
-	padding: 0;
-	  width:100vw;
-	  height:100vh;
-	  overflow:hidden;
-      background-color:#f9c4c4;
+      padding: 0;
+      background-color: #f9c4c4;
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
     }
-.wrapper {
-      width: 1793px;
-      height: 2051px;
-      transform-origin: top left;
-      position: absolute;
-      top: 0;
-      left: 0;
-      transform: scale(calc(100vh / 2051));
-}
-	
+
     .contenedor {
-      position:absolute;
-	  top:0;
-	  left:0;
       width: 1793px;
       height: 2051px;
       background: url('fondo.png') no-repeat center center;
-      background-size:cover;
-      position: relative;
+      background-size: cover;
+      transform-origin: top left;
+      transform: scale(calc(100vh / 2051));
+      position: absolute;
+      top: 0;
+      left: 0;
     }
 
     .mensaje {
       position: absolute;
       font-weight: lighter;
       color: #a00830;
-      transform: traslate (-50%,-50%);
       font-size: 4.5em;
-      font-family: Open Sans, sans-serif;
-	  font-style: italic;
+      font-family: 'Open Sans', sans-serif;
+      font-style: italic;
+      text-align: center;
     }
 
     .de {
@@ -57,10 +49,8 @@
 </head>
 <body>
   <div class="contenedor">
-    <div id="nombres">
-      <div class="mensaje de"></div>
-      <div class="mensaje para"></div>
-    </div>
+    <div class="mensaje para"></div>
+    <div class="mensaje de"></div>
   </div>
 
   <script>
@@ -71,13 +61,14 @@
       .then(aprobados => {
         if (aprobados.length > 0) {
           const elegido = aprobados[Math.floor(Math.random() * aprobados.length)];
-          document.querySelector(".de").innerText = elegido.de.toUpperCase();
-          document.querySelector(".para").innerText = elegido.para.toUpperCase();
+          document.querySelector(".de").innerText = `DE: ${elegido.de.toUpperCase()}`;
+          document.querySelector(".para").innerText = `PARA: ${elegido.para.toUpperCase()}`;
         } else {
-          document.querySelector(".de").innerText = "--";
-          document.querySelector(".para").innerText = "--";
+          document.querySelector(".de").innerText = "DE: --";
+          document.querySelector(".para").innerText = "PARA: --";
         }
       });
   </script>
 </body>
 </html>
+
