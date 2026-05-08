@@ -49,9 +49,12 @@
       .nombre {
         position: absolute;
         align-content: center;
-        top: 41%; /* ← mueve vertical */
-        left: 32%;
-        width: 634px;
+        top: -12%;
+        left: 30%;
+        transform: translate(-50%, -50%);
+        width: 1500px;
+        height: 2000px;
+        transform: scaleY(0.4); /* 🔥 AJUSTA ESTE VALOR */
         text-align: center;
 
         color: #ffdbcc;
@@ -65,17 +68,19 @@
         font-weight: 800;
 
         opacity: 0;
-
-        transition: opacity 0.8s ease;
       }
 
       /* DICHO */
       .dicho {
         position: absolute;
 
-        top: 23%; /* ← mueve vertical */
-        left: 28%;
-        width: 800px;
+        top: -21%;
+        left: 30%;
+        transform: translate(-50%, -50%);
+        width: 1500px;
+        height: 2000px;
+        transform: scaleY(0.4); /* 🔥 AJUSTA ESTE VALOR */
+
         align-content: center;
         text-align: center;
 
@@ -92,8 +97,6 @@
         font-weight: 800;
 
         opacity: 0;
-
-        transition: opacity 0.8s ease;
       }
       .mostrar {
         opacity: 1;
