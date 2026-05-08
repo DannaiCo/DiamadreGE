@@ -2,77 +2,240 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Día de la Madre - iCo Medios</title>
-  <meta http-equiv="refresh" content="120">
- <style>
-  html, body {
-    margin: 0;
-    padding: 0;
-    background-color: #f9c4c4;
-    overflow: hidden;
-    height: 100vh;
-    width: 100vw;
-  }
+  <title>Día de la madre - iCo Medios</title>
 
-  .contenedor {
-  width: 1793px;
-  height: 2051px;
-  background: url('fondo.png') no-repeat center center;
-  background-size: cover;
+  <meta http-equiv="refresh" content="180">
 
-  transform-origin: top left;
-  transform: scale(0.80);
+  <!-- FUENTE -->
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@1,800&display=swap" rel="stylesheet">
 
+  <style>
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #ffffff;
+    }
+
+    .contenedor {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* VIDEO */
+    #fondoVideo {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+
+    /* CONTENEDOR TEXTO */
+   /* CONTENEDOR GENERAL */
+#nombres {
   position: absolute;
-  top: 0;
-  left: 50%;
-  transform: scale(0.80) translateX(-50%);
+  inset: 0;
+  z-index: 5;
 }
 
-  .mensaje {
-    position: absolute;
-    font-weight: lighter;
-    color: #a00830;
-    font-size: 4.5em;
-    font-family: 'Open Sans', sans-serif;
-    font-style: italic;
-    text-align: center;
-  }
+/* NOMBRE MAMÁ */
+.nombre {
 
-  .de {
-    left: 40%;
-    bottom: 20%;
-  }
+  position: absolute;
+align-content: center;
+  top: 841px;   /* ← mueve vertical */
+  left: 577px ;  /* ← mueve horizontal */
 
-  .para {
-    left: 40%;
-    bottom: 24%;
-  }
-</style>
+  width: 634px;
+  text-align: center;
+
+  color: #FFDBCC;
+
+  font-size: 70px;
+
+  font-family: "Open Sans", sans-serif;
+
+  font-style: italic;
+
+  font-weight: 800;
+
+  opacity: 0;
+
+  transition: opacity .8s ease;
+}
+
+/* DICHO */
+.dicho {
+
+  position: absolute;
+
+  top: 468px;   /* ← mueve vertical */
+  left: 500px;  /* ← mueve horizontal */
+
+  width: 800px;
+align-content: center;
+  text-align: center;
+
+  color: #F3574A;
+
+  font-size: 75px;
+
+  line-height: 1.2;
+
+  font-family: "Open Sans", sans-serif;
+
+  font-style: italic;
+
+  font-weight: 800;
+
+  opacity: 0;
+
+  transition: opacity .8s ease;
+}
+    .mostrar {
+      opacity: 1;
+    }
+
+  </style>
 </head>
+
 <body>
+
   <div class="contenedor">
-    <div class="mensaje para"></div>
-    <div class="mensaje de"></div>
+
+    <!-- VIDEO -->
+    <video autoplay muted loop playsinline id="fondoVideo">
+      <source src="fondo.mp4" type="video/mp4">
+    </video>
+
+    <!-- TEXTOS -->
+    <div id="nombres">
+
+      <div class="nombre"></div>
+
+      <div class="dicho"></div>
+
+    </div>
+
   </div>
 
   <script>
-    const url = "https://script.googleusercontent.com/macros/echo?user_content_key=AehSKLiEuiuWRR49SnJVqsIwnVC3kpnn_F1Yks2XzBx3RMjH_pL736k_cogaCFxxYmcnLmuJmKxMFUwk7wnvWFibSBWYFZesrvx2ZVj9kNunH5-YUJpY69vEg_iMhbr4k0Hnpst_CvQYDl_x0caw1HzC9Zwoo-4v4eGbNKWSPBU_heD4FU626gVBFHl8z-9kKTvhRNfjVUY02db55BqvC3uCBmsyUEAtq6GyAUc9fprqDWxftrRkIpqERRlTQxGrmposMx631j0tUvdDt_S4GFyunwzdgAm1UfH_vqKc1rOy&lib=MNyDfrZzu-N1Aa-jfoeupoFJeGYukJztH";
+
+    const url =
+      "https://script.google.com/macros/s/AKfycbwJNwjEI0QjntRwNEl3PlPf-IC5Dd15R6dSlcaRtkgOpNljXK77EKLikm1W3PGZkjS5jA/exec";
+
+    const elNombre =
+      document.querySelector(".nombre");
+
+    const elDicho =
+      document.querySelector(".dicho");
 
     fetch(url)
-      .then(res => res.json())
-      .then(aprobados => {
-        if (aprobados.length > 0) {
-          const elegido = aprobados[Math.floor(Math.random() * aprobados.length)];
-          document.querySelector(".de").innerText = elegido.de.toUpperCase();
-          document.querySelector(".para").innerText = elegido.para.toUpperCase();
 
-        } else {
-          document.querySelector(".de").innerText = "--";
-          document.querySelector(".para").innerText = "--";
+      .then(response => response.json())
+
+      .then(data => {
+
+        console.log(data);
+
+        if (!data || data.length === 0) {
+
+          elNombre.textContent = "";
+
+          elDicho.textContent =
+            "No hay mensajes aprobados";
+
+          elDicho.classList.add("mostrar");
+
+          return;
         }
+
+        let index = 0;
+
+        function mostrarMensaje() {
+
+          const item = data[index];
+
+          console.log(item);
+
+          elNombre.classList.remove("mostrar");
+          elDicho.classList.remove("mostrar");
+
+          setTimeout(() => {
+
+            /* IMPORTANTE:
+               ESTE CÓDIGO USA:
+               item.nombre
+               item.deseo1
+
+               porque seguramente tu Apps Script
+               está devolviendo esos nombres.
+            */
+
+            elNombre.textContent =
+  item.mama
+  ? item.mama.toUpperCase()
+  : "--";
+
+elDicho.textContent =
+  item.dicho
+  ? `"${item.dicho}"`
+  : "";
+
+            elNombre.classList.add("mostrar");
+            elDicho.classList.add("mostrar");
+
+          }, 300);
+
+          index++;
+
+          if (index >= data.length) {
+            index = 0;
+          }
+        }
+
+        mostrarMensaje();
+
+        setInterval(mostrarMensaje, 5000);
+
+      })
+
+      .catch(error => {
+
+        console.error(error);
+
+        elDicho.textContent =
+          "Error cargando mensajes";
+
+        elDicho.classList.add("mostrar");
+
       });
+
   </script>
+
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
